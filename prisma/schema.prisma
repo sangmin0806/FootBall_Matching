@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../ERD.svg"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  hash  String
+
+  userName String
+
+  // Link
+  teamAsLeader Team[]
+  MatchResult  MatchResult[]
+  Comment      Comment[]
+
+  @@map("users")
+}
+
+model Team {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rank        Int?
+  rankpoint   Int    @default(0)
+  teamName    String
+  region      String
+  teamLevel   Level  @default(BEGINNER)
+  mannerRate  Int    @default(36)
+  mannerCount Int    @default(0)
+  headCount   Int
+
+  leaderId   Int
+  teamLeader User     @relation(fields: [leaderId], references: [id], onDelete: Cascade)
+  teamMember String[]
+
+  // Link
+  matchAsHomeTeam Match[] @relation("HomeTeam")
+  matchAsAwayTeam Match[] @relation("AwayTeam")
+
+  @@map("teams")
+}
+
+// 경기 룰 추가하기
+model Match {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stadiumName      String // 사용자가 입력
+  stadiumAddress   String // 사용자가 입력
+  matchDateTime    DateTime // 사용자가 입력
+  matchLevel       Level[]
+  headCountPerTeam Int // 사용자가 입력
+
+  homeTeamId                     Int
+  homeTeam                       Team     @relation("HomeTeam", fields: [homeTeamId], references: [id], onDelete: Cascade)
+  homeTeamLeaderId               Int
+  homeTeamParticipatingHeadCount Int
+  homeTeamParticipatingMember    String[]
+
+  awayTeamId                     Int?
+  awayTeam                       Team?    @relation("AwayTeam", fields: [awayTeamId], references: [id], onDelete: Cascade)
+  awayTeamLeaderId               Int?
+  awayTeamParticipatingHeadCount Int?
+  awayTeamParticipatingMember    String[]
+
+  MatchResult MatchResult[]
+
+  @@map("matches")
+}
+
+model MatchResult {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId      Int
+  createdUser User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  matchId Int
+  match   Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  homeTeamScore   Int?
+  homeTeamresult  String?
+  homemannerRate  Evaluation?
+  homemannerCount Int         @default(0)
+
+  awayTeamScore   Int?
+  awayTeamresult  String?
+  awaymannerRate  Evaluation?
+  awaymannerCount Int         @default(0)
+
+  comments Comment[]
+
+  @@map("match results")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  matchResultId Int
+  matchResult   MatchResult @relation(fields: [matchResultId], references: [id], onDelete: Cascade)
+
+  content String
+
+  @@map("comments")
+}
+
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum Evaluation {
+  BAD
+  GOOD
+}

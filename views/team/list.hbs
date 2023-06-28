@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>팀 게시판 페이지</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .container a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+    }
+
+    nav {
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 10px;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 40px;
+    }
+
+    nav ul li {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav ul li :hover {
+      text-decoration: none;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .team-list {
+      max-width: 800px;
+      margin: 20px auto 0;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .team-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .team-list li:last-child {
+      border-bottom: none;
+    }
+
+    .team-list li span {
+      flex: 1;
+    }
+
+    .team-list .header {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>
+      <a href="/">썬더일레븐</a>
+    </h1>
+    <nav>
+      <ul>
+        <li><a href="/match">매치 게시판</a></li>
+        <li><a href="/match-result">전적 게시판</a></li>
+        <li><a href="">용병 모집</a></li>
+        <li><a href="/map">경기장 찾기</a></li>
+        <li><a href="/team/my">마이 팀</a></li>
+        <li><a href="/user">프로필</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<h2>팀 게시판</h2>
+<div class="team-list">
+  <ul>
+    <li class="header">
+      <span>순위</span>
+      <span>팀 이름</span>
+      <span>활동 지역</span>
+      <span>팀 레벨</span>
+      <span>매너 온도</span>
+      <span>팀 인원</span>
+      <span>팀 리더</span>
+    </li>
+    {{#each teams}}
+      <li>
+        <span>{{ rank }}</span>
+        <span>
+          <a href="/team/{{ id }}">{{ teamName }}</a>
+        </span>
+        <span>{{ region }}</span>
+        <span>{{ teamLevel }}</span>
+        <span>{{ mannerRate }}</span>
+        <span>{{ headCount  }}</span>
+        <span>{{ leaderName }}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+</body>
+</html>
