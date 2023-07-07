@@ -10,9 +10,10 @@
 ### 👉프로젝트 기능 소개
 -  JWT 토큰을 사용한 UseGuard 인증(클라이언트는 토큰을 Cookie에 저장하고 인증)
 -  팀 CRUD, 매치 CRUD 기능
-- Away팀 참가를 통한 매치 성사
-- 매너평가를 통한 상대팀의 매너온도 설정
-- 경기 후기 댓글 창
+-  승점을 통해 팀의 rank 부여, rank순으로 팀 목록 표시
+-  Away팀 참가를 통한 매치 성사
+-  매너평가를 통한 상대팀의 매너온도 설정
+-  경기 후기 댓글 창
 ## 🔨2. 기술 스택
 ![](https://velog.velcdn.com/images/cjstkd2866/post/38aa1353-de4a-4b6b-ba8b-48deda629c51/image.png)
 
