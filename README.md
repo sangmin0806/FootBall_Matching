@@ -1,6 +1,7 @@
 ## ⚽1. 프로젝트 소개
 
-![image13](https://github.com/sangmin0806/FootBall_Matching_Site/assets/134148399/b91b7ea9-487c-42ff-bc30-2ddae3f3e446)
+![image](https://github.com/sangmin0806/FootBall_Matching/assets/134148399/9add304e-f8fe-4964-8ea2-87c4c1a80881)
+
 
 
 프로젝트 소개: 오프라인 풋살 팀들을 위해, 장소나 시간, 인원 수나 실력을 지정하여 매칭하는 웹사이트입니다.
